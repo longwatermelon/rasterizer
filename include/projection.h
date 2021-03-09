@@ -1,5 +1,8 @@
 #pragma once
 #include <vector>
+#include <fstream>
+#include <sstream>
+#include <iostream>
 
 
 struct point
@@ -23,6 +26,8 @@ struct matrix
 	float m[4][4];
 };
 
+
+mesh read(const std::string& path);
 
 void matmul(point& i, point& o, matrix& m);
 

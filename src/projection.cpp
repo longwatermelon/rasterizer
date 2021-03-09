@@ -1,6 +1,78 @@
 #include "../include/projection.h"
 
 
+mesh read(const std::string& path)
+{
+	std::fstream f(path);
+
+	std::stringstream ss;
+	std::string line;
+
+	for (int i = 0; i < 5; ++i) std::getline(f, line);
+
+	int point_num = -1;
+	std::stringstream(line) >> point_num;
+
+	double minx = 1e10, miny = 1e10, minz = 1e10, maxx = -1e10, maxy = -1e10, maxz = -1e10;
+
+	std::vector<point> points;
+	for (int i = 0; i < point_num; ++i)
+	{
+		std::getline(f, line);
+
+		std::stringstream ss(line);
+
+		double arr[3];
+		for (int j = 0; j < 3; ++j)
+		{
+			double num;
+			ss >> num;
+
+			arr[j] = num;
+		}
+
+		if (arr[0] < minx) minx = arr[0];
+		if (arr[0] > maxx) maxx = arr[0];
+
+		if (arr[1] < miny) miny = arr[1];
+		if (arr[1] > maxy) maxy = arr[1];
+
+		if (arr[2] < minz) minz = arr[2];
+		if (arr[2] > maxz) maxz = arr[2];
+
+		points.push_back({ (float)arr[0], (float)arr[1], (float)arr[2] });
+	}
+
+	for (int i = 0; i < 3; ++i) std::getline(f, line);
+
+	int tri_num = -1;
+	std::stringstream(line) >> tri_num;
+
+	std::vector<triangle> tris;
+	for (int i = 0; i < tri_num; ++i)
+	{
+		std::getline(f, line);
+
+		std::stringstream ss(line);
+
+		triangle temp;
+		for (int j = 0; j < 3; ++j)
+		{
+			int num;
+			ss >> num;
+
+			temp.indexes[j] = num - 1;
+		}
+
+		tris.push_back(temp);
+	}
+
+	f.close();
+
+	return { points, tris };
+}
+
+
 matrix make_projection(float fov, float ratio, float near, float far)
 {
 	float fovrad = 1.0f / tanf(fov * 0.5f / 180.0f * 3.1415f);
