@@ -2,7 +2,7 @@
 #include "../include/graphics.h"
 
 
-void Object::project(Graphics& gfx, matrix& mproj, Camera& cam, int sw, int sh)
+void Object::project(Graphics& gfx, matrix& mproj, matrix3& roty, Camera& cam, int sw, int sh)
 {
 	for (auto& t : m.tris)
 	{
@@ -17,10 +17,11 @@ void Object::project(Graphics& gfx, matrix& mproj, Camera& cam, int sw, int sh)
 			origps[i].y += y + cam.y;
 			origps[i].z += z + cam.z;
 
-			origps[i].x *= scale;
-			origps[i].y *= scale;
-			origps[i].z *= scale;
+			// rotation
+			//std::vector<float> rotated = matrix_multiply(roty, { origps[i].x, origps[i].y, origps[i].z });
+			origps[i] = fast_matrix_multiply(roty, origps[i]);
 
+			// projection
 			matmul(origps[i], projps[i], mproj);
 
 			// center and scale

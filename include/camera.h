@@ -7,6 +7,7 @@ class Camera
 {
 public:
 	float x, y, z;
+	float ha = 0.0f, va = 0.0f;
 	point vec = { 0, 0, 0 };
 
 	Camera(float x, float y, float z)

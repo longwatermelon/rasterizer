@@ -87,6 +87,18 @@ matrix make_projection(float fov, float ratio, float near, float far)
 }
 
 
+//float make_rotation_y(float angle)
+//{
+//	float ret[3][3] = {
+//		{cosf(angle), 0, sinf(angle)},
+//		{0, 1, 0},
+//		{-sinf(angle), 0, cosf(angle)}
+//	};
+//
+//	return ret;
+//}
+
+
 void matmul(point& i, point& o, matrix& m)
 {
 	o.x = i.x * m.m[0][0] + i.y * m.m[1][0] + i.z * m.m[2][0] + m.m[3][0];
@@ -100,4 +112,33 @@ void matmul(point& i, point& o, matrix& m)
 		o.y /= w;
 		o.z /= w;
 	}
+}
+
+
+std::vector<float> matrix_multiply(std::vector<std::vector<float>> mat, std::vector<float> vec)
+{
+	std::vector<float> ret(mat.size());
+
+	for (int y = 0; y < mat.size(); ++y)
+	{
+		ret[y] = 0.0f;
+		for (int x = 0; x < mat[0].size(); ++x)
+		{
+			ret[y] += mat[y][x] * vec[x];
+		}
+	}
+
+	return ret;
+}
+
+
+point fast_matrix_multiply(matrix3& mat, point& p)
+{
+	point ret;
+
+	ret.x = p.x * mat.m[0][0] + p.y * mat.m[1][0] + p.z * mat.m[2][0];
+	ret.y = p.x * mat.m[0][1] + p.y * mat.m[1][1] + p.z * mat.m[2][1];
+	ret.z = p.x * mat.m[0][2] + p.y * mat.m[1][2] + p.z * mat.m[2][2];
+
+	return ret;
 }
