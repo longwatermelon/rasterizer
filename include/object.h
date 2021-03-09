@@ -8,8 +8,8 @@ class Graphics;
 class Object
 {
 public:
-	Object(float x, float y, float z, const std::string& path)
-		: x(x), y(y), z(z), mpath(path)
+	Object(float x, float y, float z, float scale, const std::string& path)
+		: x(x), y(y), z(z), scale(scale)
 	{
 		m = read(path);
 	}
@@ -17,8 +17,8 @@ public:
 	void project(Graphics& gfx, matrix& mproj, int sw, int sh);
 
 public:
-	std::string mpath;
-
 	float x, y, z;
+	float scale;
+
 	mesh m;
 };

@@ -15,11 +15,13 @@ int main(int argc, char** argv)
 
 	
 	std::vector<Object> objects;
-	objects.push_back(Object(0.0f, 0.0f, 3.0f, R"(C:\Users\qianh\Downloads\meshfiles\cube.facet)"));
-	objects.push_back(Object(0.5f, 0.0f, 1.0f, R"(C:\Users\qianh\Downloads\meshfiles\sphere.facet)"));
-	objects.push_back(Object(-1.0f, 0.0f, 100.0f, R"(C:\Users\qianh\Downloads\meshfiles\spirala.facet)"));
+
+	objects.push_back(Object(0.0f, 0.0f, 15.0f, 1.0f, "meshfiles/sphere.facet"));
+	objects.push_back(Object(0.0f, 0.0f, 15.0f, 2.0f, "meshfiles/donut.facet"));
+
 
 	SDL_Event evt;
+
 	while (gfx.mainloop(evt))
 	{
 		gfx.clear();

@@ -17,6 +17,9 @@ void Object::project(Graphics& gfx, matrix& mproj, int sw, int sh)
 			origps[i].y += y;
 			origps[i].z += z;
 
+			origps[i].x *= scale;
+			origps[i].y *= scale;
+
 			matmul(origps[i], projps[i], mproj);
 
 			// center and scale
@@ -30,27 +33,3 @@ void Object::project(Graphics& gfx, matrix& mproj, int sw, int sh)
 		gfx.draw_triangle(projps[0], projps[1], projps[2]);
 	}
 }
-
-/*for (auto& t : cube.m.tris)
-		{
-			point origpoints[3], projpoints[3];
-
-			for (int i = 0; i < 3; ++i)
-			{
-				origpoints[i] = cube.m.points[t.indexes[i]];
-				origpoints[i].x -= 0.5f;
-				origpoints[i].y -= 0.5f;
-				origpoints[i].z += 3.0f;
-				matmul(origpoints[i], projpoints[i], mproj);
-			}
-
-			for (int i = 0; i < 3; ++i)
-			{
-				projpoints[i].x += 1.0f;
-				projpoints[i].y += 1.0f;
-				projpoints[i].x *=  0.5f * screen_w;
-				projpoints[i].y *=  0.5f * screen_h;
-			}
-
-			gfx.draw_triangle(projpoints[0], projpoints[1], projpoints[2]);
-		}*/
