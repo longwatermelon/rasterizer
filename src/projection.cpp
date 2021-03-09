@@ -87,18 +87,6 @@ matrix make_projection(float fov, float ratio, float near, float far)
 }
 
 
-//float make_rotation_y(float angle)
-//{
-//	float ret[3][3] = {
-//		{cosf(angle), 0, sinf(angle)},
-//		{0, 1, 0},
-//		{-sinf(angle), 0, cosf(angle)}
-//	};
-//
-//	return ret;
-//}
-
-
 void matmul(point& i, point& o, matrix& m)
 {
 	o.x = i.x * m.m[0][0] + i.y * m.m[1][0] + i.z * m.m[2][0] + m.m[3][0];

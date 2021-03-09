@@ -39,5 +39,3 @@ std::vector<float> matrix_multiply(std::vector<std::vector<float>> mat, std::vec
 point fast_matrix_multiply(matrix3& mat, point& p);
 
 matrix make_projection(float fov, float ratio, float near, float far);
-
-//float* make_rotation_y(float angle);

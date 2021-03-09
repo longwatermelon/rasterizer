@@ -15,7 +15,7 @@ public:
 		m = read(path);
 	}
 
-	void project(Graphics& gfx, matrix& mproj, matrix3& roty, Camera& cam, int sw, int sh);
+	void project(Graphics& gfx, matrix& mproj, matrix3& roty, matrix3& rotx, Camera& cam, int sw, int sh);
 
 public:
 	float x, y, z;

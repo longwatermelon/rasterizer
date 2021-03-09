@@ -2,36 +2,42 @@
 #include "../include/graphics.h"
 
 
-void Object::project(Graphics& gfx, matrix& mproj, matrix3& roty, Camera& cam, int sw, int sh)
+void Object::project(Graphics& gfx, matrix& mproj, matrix3& roty, matrix3& rotx, Camera& cam, int sw, int sh)
 {
+	std::vector<point> projpoints(m.points.size());
+
+	for (int i = 0; i < m.points.size(); ++i)
+	{
+		auto& p = m.points[i];
+
+		point origp, projp;
+
+		origp = p;
+
+		// adjust for position
+		origp.x += x + cam.x;
+		origp.y += y + cam.y;
+		origp.z += z + cam.z;
+
+		// rotation
+		origp = fast_matrix_multiply(roty, origp);
+		origp = fast_matrix_multiply(rotx, origp);
+
+		// projection
+		matmul(origp, projp, mproj);
+
+		// center and scale
+		projp.x += 1.0f;
+		projp.y += 1.0f;
+
+		projp.x *= 0.5f * sw;
+		projp.y *= 0.5f * sh;
+
+		projpoints[i] = projp;
+	}
+
 	for (auto& t : m.tris)
 	{
-		point origps[3], projps[3];
-
-		for (int i = 0; i < 3; ++i)
-		{
-			origps[i] = m.points[t.indexes[i]];
-
-			// adjust for position
-			origps[i].x += x + cam.x;
-			origps[i].y += y + cam.y;
-			origps[i].z += z + cam.z;
-
-			// rotation
-			//std::vector<float> rotated = matrix_multiply(roty, { origps[i].x, origps[i].y, origps[i].z });
-			origps[i] = fast_matrix_multiply(roty, origps[i]);
-
-			// projection
-			matmul(origps[i], projps[i], mproj);
-
-			// center and scale
-			projps[i].x += 1.0f;
-			projps[i].y += 1.0f;
-
-			projps[i].x *= 0.5f * sw;
-			projps[i].y *= 0.5f * sh;
-		}
-
-		gfx.draw_triangle(projps[0], projps[1], projps[2]);
+		gfx.draw_triangle(projpoints[t.indexes[0]], projpoints[t.indexes[1]], projpoints[t.indexes[2]]);
 	}
 }

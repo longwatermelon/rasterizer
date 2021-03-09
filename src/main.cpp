@@ -19,7 +19,7 @@ int main(int argc, char** argv)
 	std::vector<Object> objects;
 
 	//objects.push_back(Object(0.0f, 0.0f, 15.0f, "meshfiles/sphere.facet"));
-	objects.push_back(Object(0.0f, 0.0f, 15.0f, "meshfiles/spirala.facet"));
+	objects.push_back(Object(0.0f, 0.0f, 15.0f, "meshfiles/donut.facet"));
 
 	Camera cam(0.0f, 0.0f, 0.0f);
 
@@ -33,6 +33,12 @@ int main(int argc, char** argv)
 		{cosf(cam.ha), 0, sinf(cam.ha)},
 		{0, 1, 0},
 		{-sinf(cam.ha), 0, cosf(cam.ha)}
+		} };
+
+		matrix3 rotx = { {
+			{1, 0, 0},
+			{0, cosf(cam.va), sinf(cam.va)},
+			{0, -sinf(cam.va), cosf(cam.va)}
 		} };
 
 		while (SDL_PollEvent(&evt))
@@ -49,6 +55,8 @@ int main(int argc, char** argv)
 				case SDLK_LSHIFT: cam.vec.y = -0.1f; break;
 				case SDLK_RIGHT: cam.ha += 0.1f; break;
 				case SDLK_LEFT: cam.ha -= 0.1f; break;
+				case SDLK_UP: cam.va -= 0.1f; break;
+				case SDLK_DOWN: cam.va += 0.1f; break;
 				}
 			}
 
@@ -74,7 +82,7 @@ int main(int argc, char** argv)
 
 		for (auto& obj : objects)
 		{
-			obj.project(gfx, mproj, roty, cam, screen_w, screen_h);
+			obj.project(gfx, mproj, roty, rotx, cam, screen_w, screen_h);
 		}
 
 		SDL_SetRenderDrawColor(gfx.rend, 0, 0, 0, 255);
