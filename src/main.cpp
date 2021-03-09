@@ -3,6 +3,7 @@
 #include "../include/object.h"
 #include "../include/camera.h"
 #include <SDL.h>
+#include <Windows.h>
 
 
 int main(int argc, char** argv)
@@ -15,11 +16,8 @@ int main(int argc, char** argv)
 	matrix mproj = make_projection(90, screen_w / screen_h, 1.0f, 1000.0f);
 	
 
-
 	std::vector<Object> objects;
-
-	//objects.push_back(Object(0.0f, 0.0f, 15.0f, "meshfiles/sphere.facet"));
-	objects.push_back(Object(0.0f, 0.0f, 15.0f, "meshfiles/donut.facet"));
+	objects.push_back(Object(0.0f, 0.0f, 15.0f, "meshfiles/spirala.facet"));
 
 	Camera cam(0.0f, 0.0f, 0.0f);
 
@@ -41,46 +39,92 @@ int main(int argc, char** argv)
 			{0, -sinf(cam.va), cosf(cam.va)}
 		} };
 
+		if (GetAsyncKeyState('W') < 0)
+		{
+			cam.z += -0.1f * cosf(cam.ha);
+			cam.x += -0.1f * sinf(cam.ha);
+		}
+
+		if (GetAsyncKeyState('S') < 0)
+		{
+			cam.z += 0.1f * cosf(cam.ha);
+			cam.x += 0.1f * sinf(cam.ha);
+		}
+
+		if (GetAsyncKeyState('A') < 0)
+		{
+			cam.z += 0.1f * cosf(cam.ha + (3.1415 / 2));
+			cam.x += 0.1f * sinf(cam.ha + (3.1415 / 2));
+		}
+
+		if (GetAsyncKeyState('D') < 0)
+		{
+			cam.z -= 0.1f * cosf(cam.ha + (3.1415 / 2));
+			cam.x -= 0.1f * sinf(cam.ha + (3.1415 / 2));
+		}
+
+		if (GetAsyncKeyState(VK_SPACE) < 0)
+			cam.y += 0.1f;
+
+		if (GetAsyncKeyState(VK_SHIFT) < 0)
+			cam.y -= 0.1f;
+
+		if (GetAsyncKeyState(VK_LEFT) < 0)
+			cam.ha -= 0.05f;
+
+		if (GetAsyncKeyState(VK_RIGHT) < 0)
+			cam.ha += 0.05f;
+
+		if (GetAsyncKeyState(VK_UP) < 0)
+			cam.va -= 0.05f;
+
+		if (GetAsyncKeyState(VK_DOWN) < 0)
+			cam.va += 0.05f;
+
 		while (SDL_PollEvent(&evt))
 		{
-			if (evt.type == SDL_KEYDOWN)
-			{
-				switch (evt.key.keysym.sym)
-				{
-				case SDLK_w: cam.vec.z = -0.1f; break;
-				case SDLK_s: cam.vec.z = 0.1f; break;
-				case SDLK_d: cam.vec.x = -0.1f; break;
-				case SDLK_a: cam.vec.x = 0.1f; break;
-				case SDLK_SPACE: cam.vec.y = 0.1f; break;
-				case SDLK_LSHIFT: cam.vec.y = -0.1f; break;
-				case SDLK_RIGHT: cam.dha = 0.05f; break;
-				case SDLK_LEFT: cam.dha = -0.05f; break;
-				case SDLK_UP: cam.dva = -0.05f; break;
-				case SDLK_DOWN: cam.dva = 0.05f; break;
-				}
-			}
+			//if (evt.type == SDL_KEYDOWN)
+			//{
+			//	switch (evt.key.keysym.sym)
+			//	{
+			//	case SDLK_w:
+			//		cam.vec.z = -0.1f * cosf(cam.ha);
+			//		cam.vec.x = -0.1f * sinf(cam.ha);
+			//		break;
+			//	case SDLK_s:
+			//		cam.vec.z = 0.1f * cosf(cam.ha);
+			//		cam.vec.x = 0.1f * sinf(cam.ha);
+			//		break;
+			//	case SDLK_d: cam.vec.x = -0.1f; break;
+			//	case SDLK_a: cam.vec.x = 0.1f; break;
+			//	case SDLK_SPACE: cam.vec.y = 0.1f; break;
+			//	case SDLK_LSHIFT: cam.vec.y = -0.1f; break;
+			//	case SDLK_RIGHT: cam.dha = 0.05f; break;
+			//	case SDLK_LEFT: cam.dha = -0.05f; break;
+			//	case SDLK_UP: cam.dva = -0.05f; break;
+			//	case SDLK_DOWN: cam.dva = 0.05f; break;
+			//	}
+			//}
 
-			if (evt.type == SDL_KEYUP)
-			{
-				switch (evt.key.keysym.sym)
-				{
-				case SDLK_w:
-				case SDLK_s: cam.vec.z = 0.0f; break;
-				case SDLK_d:
-				case SDLK_a: cam.vec.x = 0.0f; break;
-				case SDLK_SPACE:
-				case SDLK_LSHIFT: cam.vec.y = 0.0f; break;
-				case SDLK_RIGHT:
-				case SDLK_LEFT: cam.dha = 0.0f; break;
-				case SDLK_UP:
-				case SDLK_DOWN: cam.dva = 0.0f; break;
-				}
-			}
+			//if (evt.type == SDL_KEYUP)
+			//{
+			//	switch (evt.key.keysym.sym)
+			//	{
+			//	case SDLK_w:
+			//	case SDLK_s: cam.vec.z = 0.0f; cam.vec.x = 0.0f; break;
+			//	case SDLK_d:
+			//	case SDLK_a: cam.vec.x = 0.0f; break;
+			//	case SDLK_SPACE:
+			//	case SDLK_LSHIFT: cam.vec.y = 0.0f; break;
+			//	case SDLK_RIGHT:
+			//	case SDLK_LEFT: cam.dha = 0.0f; break;
+			//	case SDLK_UP:
+			//	case SDLK_DOWN: cam.dva = 0.0f; break;
+			//	}
+			//}
 
 			if (evt.type == SDL_QUIT) running = false;
 		}
-
-		cam.move();
 
 		SDL_SetRenderDrawColor(gfx.rend, 255, 255, 255, 255);
 

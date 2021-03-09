@@ -5,6 +5,7 @@
 void Object::project(Graphics& gfx, matrix& mproj, matrix3& roty, matrix3& rotx, Camera& cam, int sw, int sh)
 {
 	std::vector<point> projpoints(m.points.size());
+	std::vector<point> origpoints(m.points.size());
 
 	for (int i = 0; i < m.points.size(); ++i)
 	{
@@ -15,13 +16,15 @@ void Object::project(Graphics& gfx, matrix& mproj, matrix3& roty, matrix3& rotx,
 		origp = p;
 
 		// adjust for position
-		origp.x += x + cam.x;
-		origp.y += y + cam.y;
-		origp.z += z + cam.z;
+		origp.x += this->x + cam.x;
+		origp.y += this->y + cam.y;
+		origp.z += this->z + cam.z;
 
 		// rotation
 		origp = fast_matrix_multiply(roty, origp);
 		origp = fast_matrix_multiply(rotx, origp);
+
+		origpoints[i] = origp;
 
 		// projection
 		matmul(origp, projp, mproj);
@@ -38,6 +41,7 @@ void Object::project(Graphics& gfx, matrix& mproj, matrix3& roty, matrix3& rotx,
 
 	for (auto& t : m.tris)
 	{
-		gfx.draw_triangle(projpoints[t.indexes[0]], projpoints[t.indexes[1]], projpoints[t.indexes[2]]);
+		if (origpoints[t.indexes[0]].z > 1.0f && origpoints[t.indexes[1]].z > 1.0f && origpoints[t.indexes[2]].z > 1.0f)
+			gfx.draw_triangle(projpoints[t.indexes[0]], projpoints[t.indexes[1]], projpoints[t.indexes[2]]);
 	}
 }
