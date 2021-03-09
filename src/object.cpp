@@ -2,7 +2,7 @@
 #include "../include/graphics.h"
 
 
-void Object::project(Graphics& gfx, matrix& mproj, int sw, int sh)
+void Object::project(Graphics& gfx, matrix& mproj, Camera& cam, int sw, int sh)
 {
 	for (auto& t : m.tris)
 	{
@@ -13,12 +13,13 @@ void Object::project(Graphics& gfx, matrix& mproj, int sw, int sh)
 			origps[i] = m.points[t.indexes[i]];
 
 			// adjust for position
-			origps[i].x += x;
-			origps[i].y += y;
-			origps[i].z += z;
+			origps[i].x += x + cam.x;
+			origps[i].y += y + cam.y;
+			origps[i].z += z + cam.z;
 
 			origps[i].x *= scale;
 			origps[i].y *= scale;
+			origps[i].z *= scale;
 
 			matmul(origps[i], projps[i], mproj);
 

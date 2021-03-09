@@ -1,5 +1,6 @@
 #pragma once
 #include "projection.h"
+#include "camera.h"
 #include <SDL.h>
 
 class Graphics;
@@ -14,7 +15,7 @@ public:
 		m = read(path);
 	}
 
-	void project(Graphics& gfx, matrix& mproj, int sw, int sh);
+	void project(Graphics& gfx, matrix& mproj, Camera& cam, int sw, int sh);
 
 public:
 	float x, y, z;
