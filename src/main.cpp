@@ -53,10 +53,10 @@ int main(int argc, char** argv)
 				case SDLK_a: cam.vec.x = 0.1f; break;
 				case SDLK_SPACE: cam.vec.y = 0.1f; break;
 				case SDLK_LSHIFT: cam.vec.y = -0.1f; break;
-				case SDLK_RIGHT: cam.ha += 0.1f; break;
-				case SDLK_LEFT: cam.ha -= 0.1f; break;
-				case SDLK_UP: cam.va -= 0.1f; break;
-				case SDLK_DOWN: cam.va += 0.1f; break;
+				case SDLK_RIGHT: cam.dha = 0.05f; break;
+				case SDLK_LEFT: cam.dha = -0.05f; break;
+				case SDLK_UP: cam.dva = -0.05f; break;
+				case SDLK_DOWN: cam.dva = 0.05f; break;
 				}
 			}
 
@@ -70,6 +70,10 @@ int main(int argc, char** argv)
 				case SDLK_a: cam.vec.x = 0.0f; break;
 				case SDLK_SPACE:
 				case SDLK_LSHIFT: cam.vec.y = 0.0f; break;
+				case SDLK_RIGHT:
+				case SDLK_LEFT: cam.dha = 0.0f; break;
+				case SDLK_UP:
+				case SDLK_DOWN: cam.dva = 0.0f; break;
 				}
 			}
 
