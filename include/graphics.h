@@ -18,5 +18,5 @@ public:
 	void clear() { SDL_RenderClear(rend); }
 
 	void draw_triangle(point& p1, point& p2, point& p3);
-	void draw_filled_triangle(point p0, point p1, point p2, const point& color);
+	void draw_filled_triangle(point p0, point p1, point p2, const point& color, std::array<float, 1000>& xl, std::array<float, 1000>& xr);
 };

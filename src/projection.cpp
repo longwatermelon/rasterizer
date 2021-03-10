@@ -1,4 +1,5 @@
 #include "../include/projection.h"
+#include <array>
 
 
 mesh read(const std::string& path)
@@ -95,19 +96,24 @@ void swap_points(point& p1, point& p2)
 }
 
 
-std::vector<float> interpolate(float x0, float y0, float x1, float y1)
+void interpolate(float x0, float y0, float x1, float y1, std::array<float, 1000>& ret)
 {
-	std::vector<float> ret;
-
-	float slope = (x1 - x0) / (y1 - y0);
-
-	for (float y = y0; y < y1; ++y)
+	if ((int)y0 < (int)y1)
 	{
-		float x = x0 + (slope * (y - y0));
-		ret.push_back(x);
-	}
+		float slope = (x1 - x0) / (y1 - y0);
 
-	return ret;
+		if (y0 < 0.0f) y0 = 0.0f;
+		if (y1 > 1000.0f) y1 = 1000.0f;
+
+		for (float y = y0; y < y1; ++y)
+		{
+			float x = x0 + (slope * (y - y0));
+
+			if (x < 0) x = 0;
+			if (x > 1000) x = 1000;
+			ret[(int)y] = x;
+		}
+	}
 }
 
 

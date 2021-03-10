@@ -1,7 +1,9 @@
 #pragma once
 #include "projection.h"
 #include "camera.h"
+#include <array>
 #include <SDL.h>
+
 
 class Graphics;
 
@@ -19,6 +21,7 @@ public:
 
 public:
 	float x, y, z;
+	std::array<float, 1000> xl{ 0 }, xr{ 0 };
 
 	mesh m;
 };

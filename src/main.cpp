@@ -17,7 +17,7 @@ int main(int argc, char** argv)
 	
 
 	std::vector<Object> objects;
-	objects.push_back(Object(0.0f, 0.0f, 6.0f, "meshfiles/cube.facet"));
+	objects.push_back(Object(0.0f, 0.0f, 40.0f, "meshfiles/donut.facet"));
 
 	Camera cam(0.0f, 0.0f, 0.0f);
 
@@ -97,6 +97,9 @@ int main(int argc, char** argv)
 
 		gfx.render();
 	}
+
+	SDL_DestroyWindow(gfx.window);
+	SDL_DestroyRenderer(gfx.rend);
 
 	SDL_Quit();
 
