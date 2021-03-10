@@ -83,46 +83,6 @@ int main(int argc, char** argv)
 
 		while (SDL_PollEvent(&evt))
 		{
-			//if (evt.type == SDL_KEYDOWN)
-			//{
-			//	switch (evt.key.keysym.sym)
-			//	{
-			//	case SDLK_w:
-			//		cam.vec.z = -0.1f * cosf(cam.ha);
-			//		cam.vec.x = -0.1f * sinf(cam.ha);
-			//		break;
-			//	case SDLK_s:
-			//		cam.vec.z = 0.1f * cosf(cam.ha);
-			//		cam.vec.x = 0.1f * sinf(cam.ha);
-			//		break;
-			//	case SDLK_d: cam.vec.x = -0.1f; break;
-			//	case SDLK_a: cam.vec.x = 0.1f; break;
-			//	case SDLK_SPACE: cam.vec.y = 0.1f; break;
-			//	case SDLK_LSHIFT: cam.vec.y = -0.1f; break;
-			//	case SDLK_RIGHT: cam.dha = 0.05f; break;
-			//	case SDLK_LEFT: cam.dha = -0.05f; break;
-			//	case SDLK_UP: cam.dva = -0.05f; break;
-			//	case SDLK_DOWN: cam.dva = 0.05f; break;
-			//	}
-			//}
-
-			//if (evt.type == SDL_KEYUP)
-			//{
-			//	switch (evt.key.keysym.sym)
-			//	{
-			//	case SDLK_w:
-			//	case SDLK_s: cam.vec.z = 0.0f; cam.vec.x = 0.0f; break;
-			//	case SDLK_d:
-			//	case SDLK_a: cam.vec.x = 0.0f; break;
-			//	case SDLK_SPACE:
-			//	case SDLK_LSHIFT: cam.vec.y = 0.0f; break;
-			//	case SDLK_RIGHT:
-			//	case SDLK_LEFT: cam.dha = 0.0f; break;
-			//	case SDLK_UP:
-			//	case SDLK_DOWN: cam.dva = 0.0f; break;
-			//	}
-			//}
-
 			if (evt.type == SDL_QUIT) running = false;
 		}
 
