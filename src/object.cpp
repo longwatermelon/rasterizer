@@ -42,6 +42,7 @@ void Object::project(Graphics& gfx, matrix& mproj, matrix3& roty, matrix3& rotx,
 	for (auto& t : m.tris)
 	{
 		if (origpoints[t.indexes[0]].z > 1.0f && origpoints[t.indexes[1]].z > 1.0f && origpoints[t.indexes[2]].z > 1.0f)
-			gfx.draw_triangle(projpoints[t.indexes[0]], projpoints[t.indexes[1]], projpoints[t.indexes[2]]);
+			gfx.draw_filled_triangle(projpoints[t.indexes[0]], projpoints[t.indexes[1]], projpoints[t.indexes[2]], { 255, 0, 255 });
+			//gfx.draw_triangle(projpoints[t.indexes[0]], projpoints[t.indexes[1]], projpoints[t.indexes[2]]);
 	}
 }

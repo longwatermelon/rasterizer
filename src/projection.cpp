@@ -87,6 +87,30 @@ matrix make_projection(float fov, float ratio, float near, float far)
 }
 
 
+void swap_points(point& p1, point& p2)
+{
+	point temp = p1;
+	p1 = p2;
+	p2 = temp;
+}
+
+
+std::vector<float> interpolate(float x0, float y0, float x1, float y1)
+{
+	std::vector<float> ret;
+
+	float slope = (x1 - x0) / (y1 - y0);
+
+	for (float y = y0; y < y1; ++y)
+	{
+		float x = x0 + (slope * (y - y0));
+		ret.push_back(x);
+	}
+
+	return ret;
+}
+
+
 void matmul(point& i, point& o, matrix& m)
 {
 	o.x = i.x * m.m[0][0] + i.y * m.m[1][0] + i.z * m.m[2][0] + m.m[3][0];
