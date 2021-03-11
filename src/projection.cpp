@@ -118,6 +118,31 @@ void interpolate(float x0, float y0, float iz0, float x1, float y1, float iz1, s
 }
 
 
+point tri_normal_vector(point p0, point p1, point p2)
+{
+	point v, w, n;
+	v.x = p1.x - p0.x;
+	v.y = p1.y - p0.y;
+	v.z = p1.z - p0.z;
+
+	w.x = p2.x - p0.x;
+	w.y = p2.y - p0.y;
+	w.z = p2.z - p0.z;
+
+	n.x = (v.y * w.z) - (v.z * w.y);
+	n.y = (v.z * w.x) - (v.x * w.z);
+	n.z = (v.x * w.y) - (v.y * w.x);
+
+	float length = std::sqrt((n.x * n.x) + (n.y * n.y) + (n.z * n.z));
+
+	n.x /= length;
+	n.y /= length;
+	n.z /= length;
+
+	return n;
+}
+
+
 void matmul(point& i, point& o, matrix& m)
 {
 	o.x = i.x * m.m[0][0] + i.y * m.m[1][0] + i.z * m.m[2][0] + m.m[3][0];

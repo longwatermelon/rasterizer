@@ -17,11 +17,14 @@ int main(int argc, char** argv)
 	
 
 	std::vector<Object> objects;
-	objects.push_back(Object(0.0f, 0.0f, 15, "meshfiles/donut.facet"));
+	//objects.push_back(Object(0.0f, 0.0f, 60, "meshfiles/spirala.facet"));
+	objects.push_back(Object(0.0f, 0.0f, 10, "meshfiles/donut.facet"));
 
 	Camera cam(0.0f, 0.0f, 0.0f);
 
 	SDL_Event evt;
+	SDL_Rect temp = { 0, 0, 1000, 1000 };
+
 
 	while (running)
 	{
@@ -86,14 +89,33 @@ int main(int argc, char** argv)
 			if (evt.type == SDL_QUIT) running = false;
 		}
 
-		SDL_SetRenderDrawColor(gfx.rend, 255, 255, 255, 255);
+		//SDL_SetRenderDrawColor(gfx.rend, 255, 255, 255, 255);
+
+		for (int i = 0; i < 1000 * 1000; ++i)
+		{
+			gfx.texbuf[i] = 0x000000;
+			gfx.depths[i] = 0;
+		}
 
 		for (auto& obj : objects)
 		{
 			obj.project(gfx, mproj, roty, rotx, cam, screen_w, screen_h);
 		}
 
-		SDL_SetRenderDrawColor(gfx.rend, 0, 0, 0, 255);
+		/*for (int y = 0; y < 1000; ++y)
+		{
+			for (int x = 0; x < 1000; ++x)
+			{
+				SDL_SetRenderDrawColor(gfx.rend, gfx.screen[y * 1000 + x].r, gfx.screen[y * 1000 + x].g, gfx.screen[y * 1000 + x].b, 255);
+				SDL_RenderDrawPoint(gfx.rend, x, y);
+			}
+		}*/
+
+		SDL_UpdateTexture(gfx.tex, 0, gfx.texbuf, 1000 * sizeof(uint32_t));
+
+		SDL_RenderCopy(gfx.rend, gfx.tex, 0, &temp);
+
+		//SDL_SetRenderDrawColor(gfx.rend, 0, 0, 0, 255);
 
 		gfx.render();
 	}

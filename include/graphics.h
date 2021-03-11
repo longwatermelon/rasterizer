@@ -11,15 +11,19 @@ public:
 	SDL_Renderer* rend;
 	int screen_w, screen_h;
 
-	SDL_Color* screen;
 	float* depths;
+
+	SDL_Texture* tex;
+	uint32_t* texbuf;
 
 	Graphics(int w = 1000, int h = 1000);
 
 	~Graphics()
 	{
-		delete[] screen;
 		delete[] depths;
+
+		delete[] texbuf;
+		SDL_DestroyTexture(tex);
 	}
 
 	void render() { SDL_RenderPresent(rend); }

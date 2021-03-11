@@ -40,11 +40,7 @@ void Object::project(Graphics& gfx, matrix& mproj, matrix3& roty, matrix3& rotx,
 		projpoints[i] = projp;
 	}
 
-	for (int i = 0; i < 1000 * 1000; ++i)
-	{
-		gfx.screen[i] = { 0, 0, 0 };
-		gfx.depths[i] = 0;
-	}
+	
 	
 	for (auto& t : m.tris)
 	{
@@ -67,12 +63,5 @@ void Object::project(Graphics& gfx, matrix& mproj, matrix3& roty, matrix3& rotx,
 	}
 
 	std::cout << min << " | " << max << "\n";*/
-	for (int y = 0; y < 1000; ++y)
-	{
-		for (int x = 0; x < 1000; ++x)
-		{
-			SDL_SetRenderDrawColor(gfx.rend, gfx.screen[y * 1000 + x].r, gfx.screen[y * 1000 + x].g, gfx.screen[y * 1000 + x].b, 255);
-			SDL_RenderDrawPoint(gfx.rend, x, y);
-		}
-	}
+	
 }
