@@ -96,7 +96,7 @@ void swap_points(point& p1, point& p2)
 }
 
 
-void interpolate(float x0, float y0, float x1, float y1, std::array<float, 1000>& ret)
+void interpolate(float x0, float y0, float iz0, float x1, float y1, float iz1, std::array<float, 1000>& ret, std::array<float, 1000>& retz)
 {
 	if ((int)y0 < (int)y1)
 	{
@@ -112,6 +112,7 @@ void interpolate(float x0, float y0, float x1, float y1, std::array<float, 1000>
 			if (x < 0) x = 0;
 			if (x > 1000) x = 1000;
 			ret[(int)y] = x;
+			retz[(int)y] = iz0 + (y - y0) * ((iz1 - iz0) / (y1 - y0));
 		}
 	}
 }

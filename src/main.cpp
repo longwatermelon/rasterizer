@@ -17,7 +17,7 @@ int main(int argc, char** argv)
 	
 
 	std::vector<Object> objects;
-	objects.push_back(Object(0.0f, 0.0f, 40.0f, "meshfiles/donut.facet"));
+	objects.push_back(Object(0.0f, 0.0f, 15, "meshfiles/donut.facet"));
 
 	Camera cam(0.0f, 0.0f, 0.0f);
 

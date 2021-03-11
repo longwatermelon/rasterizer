@@ -22,6 +22,7 @@ public:
 public:
 	float x, y, z;
 	std::array<float, 1000> xl{ 0 }, xr{ 0 };
+	std::array<float, 1000> izl{ 0 }, izr{ 0 };
 
 	mesh m;
 };

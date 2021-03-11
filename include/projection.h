@@ -41,4 +41,4 @@ point fast_matrix_multiply(matrix3& mat, point& p);
 matrix make_projection(float fov, float ratio, float near, float far);
 
 void swap_points(point& p1, point& p2);
-void interpolate(float x0, float y0, float x1, float y1, std::array<float, 1000>& arr);
+void interpolate(float x0, float y0, float iz0, float x1, float y1, float iz1, std::array<float, 1000>& arr, std::array<float, 1000>& retz);
